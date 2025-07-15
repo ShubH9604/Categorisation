@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Step 1: Load Excel
-input_file = "testfile6.xlsx"
+input_file = "predicted_hdfc1yr.xlsx"
 df = pd.read_excel(input_file)
 
 # Step 2: Column name mapping dictionary
@@ -136,24 +136,24 @@ def has_loan_keyword(narration):
 df['Bounce Type'] = None
 
 for i, row in df.iterrows():
-    narration = row['Narration']
-    
-    if has_loan_keyword(narration) and row['Debits'] > 0 and row['Balance'] < 0:
-        cheque_no = row['Cheque No']
-        amount = row['Debits']
-        date = row['XN Date']
+    narration = str(row['Narration']).lower()
+    cheque_no = str(row['Cheque No']).strip()
+    date = row['XN Date']
+    debit_amt = row['Debits']
 
+    if has_loan_keyword(narration) and pd.notna(debit_amt) and debit_amt > 0:
+        # Match by same Cheque No and near-same credit amount
         match = df[
             (df['XN Date'] == date) &
-            (df['Credits'] >= amount * 0.9) &
-            (df['Cheque No'] == cheque_no) &
+            (df['Credits'].fillna(0).between(debit_amt * 0.95, debit_amt * 1.05)) &
+            (df['Cheque No'].astype(str).str.strip() == cheque_no) &
             (df.index != i)
         ]
 
         if not match.empty:
             j = match.index[0]
-            df.at[i, 'Bounce Type'] = "Loan Bounce"
-            df.at[j, 'Bounce Type'] = "Reversed/Disbursed"
+            df.at[i, 'Bounce Type'] = ""
+            df.at[j, 'Bounce Type'] = "Loan Bounce"
             continue
 
     bounce_type = identify_bounce_type(narration)
