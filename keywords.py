@@ -24,35 +24,35 @@
         "non_technical_keywords": [
           "chq ret", "chq return", "funds insufficient", "i/w chq ret",
           "i/w chq rtn", "i/w chq return", "o/w rtn chq", "rtn(chq no.)", "chq issued bounce",
-          "reject:(chq no.)", "ow chq rej", "brn-ow rtn", "brn-ow rtn clg",
-          "reject:funds insufficient", "returned:funds insufficient"
+          "reject:(chq no.)", "ow chq rej", "brn-ow rtn", "brn-ow rtn clg", "i/wchqreturn",
+          "reject:funds insufficient", "returned:funds insufficient", "funds", "chqretfunds"
         ]
       },
-      "ACH": {
+      "ACH BOUNCE": {
         "type_keywords": ["ach", "nach"],
         "keywords": ["nach return", "nach rtn", "rev:nach", "achdebit rtn"]
       },
-      "NEFT": {
-        "type_keywords": ["neft", "returned"],
+      "NEFT BOUNCE": {
+        "type_keywords": ["neft"],
         "keywords": [
           "account does not exist", "rej", "rtn", "ret", "return", "return(account closed)",
           "return(not a valid cpin)", "returned", "returnfor", "reversal",
           "rtn(blocked account)", "rtn(invalid account)"
         ]
       },
-      "IMPS": {
+      "IMPS BOUNCE": {
         "type_keywords": ["imps"],
-        "keywords": ["imps return", "rev:imps", "reversal", "ret", "rtn", "failed", "rev-imps", "return-imps"]
+        "keywords": ["imps return", "rev:imps", "reversal", "ret", "rtn", "failed", "rev-imps", "return-imps", "return", "rev", "rej"]
       },
-      "UPI": {
+      "UPI BOUNCE": {
         "type_keywords": ["upi"],
         "keywords": ["return", "ret", "rtn", "returned", "failed", "rev", "reversal", "fail", "failur", "faild"]
       },
-      "RTGS": {
+      "RTGS BOUNCE": {
         "type_keywords": ["rtgs"],
         "keywords": ["rtgs return", "rtgs failed", "rtn:rtgs", "rev"]
       },
-      "ECS": {
+      "ECS BOUNCE": {
         "type_keywords": ["ecs"],
         "keywords": ["ecs return", "return ach", "nach fail", "inward return"]
       }
