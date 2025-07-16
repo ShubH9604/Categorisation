@@ -28,7 +28,7 @@ def preprocess(df):
     df['Balance'] = pd.to_numeric(df['Balance'], errors='coerce')
     df['Balance_copy'] = df['Balance']
     df['Cheque_No_copy'] = df['Cheque No'].astype(str)
-    df['Xns_Date_copy'] = pd.to_datetime(df['Xns Date'], errors="coerce")
+    df['Xns_Date_copy'] = pd.to_datetime(df['Xns Date'], dayFirst=True)
 
     return df
 
