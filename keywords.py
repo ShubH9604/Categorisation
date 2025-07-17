@@ -18,14 +18,14 @@
           "rtnchg", "rtnchrg", "rtnchrgs", "rtncharges", "rtnchgs",
           "returnchg", "returnchrg", "returnchrgs", "returncharges", "returnchgs",
           "ret charges", "ret_chrg", "rtn_chrg", "rev_chrg", "rtn chrg",
-          "bounce charges", "debit return", "credit return", "bounced charges", "chq return", "Chrg: Chq Issue And Return", "return charges"
+          "bounce charges", "debit return", "credit return", "bounced charges", "chq return", "Chrg: Chq Issue And Return", "return charges", "Chq Rtn ECS Chrgs", "GST @18% on Chq Rtn"
         ]
       },
       "CHEQUE BOUNCE - TECHNICAL": {
         "type_keywords": ["chq", "cheque", "returned", "inward return", "reject"],
         "keywords": [
           "instrument undated", "signature differs", "signature mismatch", "drawer’s signature differs",
-          "payment stopped", "payment stopped by drawer", "stop payment", "exceeds arrangement", "exceeds limit", "signature", "instrument", "instrument outdated", "rej"
+          "payment stopped", "payment stopped by drawer", "stop payment", "exceeds arrangement", "exceeds limit", "signature", "instrument", "instrument outdated", "undated", "instrume"
         ]
       },
       "CHEQUE BOUNCE - NON TECHNICAL": {
@@ -33,7 +33,7 @@
         "keywords": [
           "chq ret", "chq return", "funds insufficient", "insufficient funds", "fundsinsufficient",
           "i/w chq ret", "i/w chq rtn", "i/w chq return", "i/wchqreturn",
-          "o/w rtn chq", "ow chq rej", "brn-ow rtn", "brn-ow rtn clg",
+          "o/w rtn chq", "ow chq rej", 
           "rtn(chq no.)", "reject:(chq no.)", "reject:funds insufficient",
           "returned:funds insufficient", "chq issued bounce", "funds", "chqretfunds",
           "inward return", "rejected", "other reason"
