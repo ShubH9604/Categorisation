@@ -35,19 +35,26 @@ def preprocess(df):
 def identify_bounce_type(narration):
     narration = narration.lower()
 
+    # ✅ Handle "BOUNCE CHARGES - GST" first with specific rule
+    gst_data = bounce_keywords.get("BOUNCE CHARGES", {})
+    gst_type_keywords = list(map(str.lower, gst_data.get("type_keywords", [])))
+    gst_keywords = list(map(str.lower, gst_data.get("keywords", [])))
+
+    if "gst" in narration and \
+       any(tk in narration for tk in gst_type_keywords) and \
+       any(kw in narration for kw in gst_keywords):
+        return "BOUNCE CHARGES - GST"
+
+    # 🔁 Check all other bounce types except GST
     for bounce_type, data in bounce_keywords.items():
+        if bounce_type == "BOUNCE CHARGES - GST":
+            continue  # Already handled above
+
         type_keywords = list(map(str.lower, data.get("type_keywords", [])))
         keywords = list(map(str.lower, data.get("keywords", [])))
 
-        # Special handling for GST logic
-        if bounce_type == "BOUNCE CHARGES - GST":
-            if "gst" in narration and \
-               any(tk in narration for tk in bounce_keywords["BOUNCE CHARGES"]["type_keywords"]) and \
-               any(kw in narration for kw in bounce_keywords["BOUNCE CHARGES"]["keywords"]):
-                return "BOUNCE CHARGES - GST"
-            continue  # Skip regular match
-
-        if any(tk in narration for tk in type_keywords) and any(kw in narration for kw in keywords):
+        if any(tk in narration for tk in type_keywords) and \
+           any(kw in narration for kw in keywords):
             return bounce_type
 
     return None
@@ -68,7 +75,7 @@ def tag_bounces(df):
             # Match by same Cheque No and near-same credit amount
             match = df[
                 (df['Xns_Date_copy'] == date) &
-                (df['Credits_copy'].fillna(0) == debit_amt) &
+                (df['Credits_copy'].fillna(0).between(debit_amt * 0.99, debit_amt * 1.01)) &
                 (df['Cheque_No_copy'].astype(str).str.strip() == cheque_no) &
                 (df.index != i)
             ]
@@ -119,6 +126,6 @@ def main(input_path, output_path):
     print(f"✅ Bounce tagging completed and saved as: {output_path}")
 
 if __name__ == "__main__":
-    input_file = "union10.xlsx"
+    input_file = "loan_bounce.xlsx"
     output_file = input_file.replace(".xlsx", "_output.xlsx")
     main(input_file, output_file)
